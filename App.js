@@ -6,6 +6,7 @@ import {
   Dimensions,
   StatusBar,
   TouchableWithoutFeedback,
+  Animated,
 } from 'react-native';
 
 var colors = [
@@ -20,14 +21,35 @@ var colors = [
 ];
 
 class Tile extends React.Component {
-  state = { transformed: false };
+  state = { scale: new Animated.Value(1) };
+  springOptions = {
+    speed: 50,
+    bounciness: 8,
+    useNativeDriver: true,
+  };
 
   _onPressIn() {
-    this.setState({ transformed: true });
+    if (this.animation) {
+      this.animation.stop();
+    }
+
+    this.animation = Animated.spring(this.state.scale, {
+      ...this.springOptions,
+      toValue: 0.7,
+    });
+    this.animation.start();
   }
 
   _onPressOut() {
-    this.setState({ transformed: false });
+    // this.setState({ transformed: false });
+    this.animation.stop();
+
+    this.animation = Animated.spring(this.state.scale, {
+      ...this.springOptions,
+      toValue: 1,
+    });
+
+    this.animation.start();
   }
 
   render() {
@@ -35,12 +57,12 @@ class Tile extends React.Component {
       <TouchableWithoutFeedback
         onPressIn={this._onPressIn.bind(this)}
         onPressOut={this._onPressOut.bind(this)}>
-        <View
+        <Animated.View
           style={{
             width: Dimensions.get('window').width / 2,
             height: Dimensions.get('window').height / 4,
             backgroundColor: this.props.color,
-            transform: [{ scale: this.state.transformed ? 0.5 : 1 }],
+            transform: [{ scale: this.state.scale }],
           }}
         />
       </TouchableWithoutFeedback>
