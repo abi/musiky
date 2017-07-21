@@ -9,6 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { Audio } from 'expo';
+import Mic from './assets/svgs/mic';
 
 var tiles = [
   { color: '#FF482F', sound: require('./assets/sounds/clap.wav') },
@@ -73,8 +74,18 @@ class Tile extends React.Component {
             height: Dimensions.get('window').height / 4,
             backgroundColor: this.props.color,
             transform: [{ scale: this.state.scale }],
-          }}
-        />
+          }}>
+          {this.props.type == 'custom' &&
+            <Mic
+              width={80}
+              height={80}
+              style={{
+                position: 'absolute',
+                top: Dimensions.get('window').height / 4 / 2 - 40,
+                left: Dimensions.get('window').width / 2 / 2 - 40,
+              }}
+            />}
+        </Animated.View>
       </TouchableWithoutFeedback>
     );
   }
@@ -82,13 +93,13 @@ class Tile extends React.Component {
 
 export default class App extends React.Component {
   componentWillMount() {
-    Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS, // TODO(Abi): Switch back to INTERRUPTION_MODE_IOS_DO_NOT_MIX
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true, // TODO(Abi): Is this the common behavior on Android?
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-    });
+    // Audio.setAudioModeAsync({
+    //   allowsRecordingIOS: false,
+    //   interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS, // TODO(Abi): Switch back to INTERRUPTION_MODE_IOS_DO_NOT_MIX
+    //   playsInSilentModeIOS: true,
+    //   shouldDuckAndroid: true, // TODO(Abi): Is this the common behavior on Android?
+    //   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    // });
   }
 
   render() {
@@ -96,7 +107,12 @@ export default class App extends React.Component {
       <View style={{ flexWrap: 'wrap', backgroundColor: 'black' }}>
         <StatusBar hidden={true} />
         {tiles.map((tile, i) =>
-          <Tile key={i} color={tile.color} sound={tile.sound} />
+          <Tile
+            key={i}
+            color={tile.color}
+            sound={tile.sound}
+            type={i == 0 ? 'custom' : 'preset'}
+          />
         )}
       </View>
     );
