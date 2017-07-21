@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
 
 var colors = [
   '#FF482F',
@@ -16,6 +16,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{ flexWrap: 'wrap' }}>
+        <StatusBar hidden={true} />
         {colors.map((color, i) =>
           <View
             key={i}
