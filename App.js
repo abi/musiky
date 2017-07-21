@@ -9,18 +9,23 @@ var colors = [
   '#FF9B31',
   '#FF5677',
   '#BB60BF',
-  '#54F393'
+  '#54F393',
 ];
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flexWrap: 'wrap'}}>
-        {
-          colors.map((color, i) =>
-            <View key={i} style={{width: Dimensions.get('window').width / 2, height: Dimensions.get('window').height / 4, backgroundColor: color}}></View>
-          )
-        }
+      <View style={{ flexWrap: 'wrap' }}>
+        {colors.map((color, i) =>
+          <View
+            key={i}
+            style={{
+              width: Dimensions.get('window').width / 2,
+              height: Dimensions.get('window').height / 4,
+              backgroundColor: color,
+            }}
+          />
+        )}
       </View>
     );
   }
