@@ -11,14 +11,14 @@ import {
 import { Audio } from 'expo';
 
 var tiles = [
-  { color: '#FF482F', sound: './assets/sounds/clap.wav' },
-  { color: '#F8CE64', sound: './assets/sounds/clap.wav' },
-  { color: '#74F8B7', sound: './assets/sounds/clap.wav' },
-  { color: '#ADC96C', sound: './assets/sounds/clap.wav' },
-  { color: '#FF9B31', sound: './assets/sounds/clap.wav' },
-  { color: '#FF5677', sound: './assets/sounds/clap.wav' },
-  { color: '#BB60BF', sound: './assets/sounds/clap.wav' },
-  { color: '#54F393', sound: './assets/sounds/clap.wav' },
+  { color: '#FF482F', sound: require('./assets/sounds/clap.wav') },
+  { color: '#F8CE64', sound: require('./assets/sounds/clap.wav') },
+  { color: '#74F8B7', sound: require('./assets/sounds/clap.wav') },
+  { color: '#ADC96C', sound: require('./assets/sounds/clap.wav') },
+  { color: '#FF9B31', sound: require('./assets/sounds/clap.wav') },
+  { color: '#FF5677', sound: require('./assets/sounds/clap.wav') },
+  { color: '#BB60BF', sound: require('./assets/sounds/clap.wav') },
+  { color: '#54F393', sound: require('./assets/sounds/clap.wav') },
 ];
 
 class Tile extends React.Component {
@@ -31,7 +31,7 @@ class Tile extends React.Component {
 
   componentWillMount() {
     this.soundObject = new Audio.Sound();
-    this.soundObject.loadAsync(require('./assets/sounds/clap.wav'));
+    this.soundObject.loadAsync(this.props.sound);
   }
 
   _onPressIn() {
