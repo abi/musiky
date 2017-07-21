@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  StatusBar,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 var colors = [
   '#FF482F',
@@ -13,19 +20,34 @@ var colors = [
 ];
 
 export default class App extends React.Component {
+  state = { transformed: false };
+
+  _onPressIn() {
+    this.setState({ transformed: true });
+  }
+
+  _onPressOut() {
+    this.setState({ transformed: false });
+  }
+
   render() {
     return (
       <View style={{ flexWrap: 'wrap' }}>
         <StatusBar hidden={true} />
         {colors.map((color, i) =>
-          <View
-            key={i}
-            style={{
-              width: Dimensions.get('window').width / 2,
-              height: Dimensions.get('window').height / 4,
-              backgroundColor: color,
-            }}
-          />
+          <TouchableWithoutFeedback
+            onPressIn={this._onPressIn.bind(this)}
+            onPressOut={this._onPressOut.bind(this)}
+            key={i}>
+            <View
+              style={{
+                width: Dimensions.get('window').width / 2,
+                height: Dimensions.get('window').height / 4,
+                backgroundColor: color,
+                transform: [{ scale: this.state.transformed ? 0.5 : 1 }],
+              }}
+            />
+          </TouchableWithoutFeedback>
         )}
       </View>
     );
