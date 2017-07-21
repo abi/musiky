@@ -8,16 +8,17 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from 'react-native';
+import { Audio } from 'expo';
 
-var colors = [
-  '#FF482F',
-  '#F8CE64',
-  '#74F8B7',
-  '#ADC96C',
-  '#FF9B31',
-  '#FF5677',
-  '#BB60BF',
-  '#54F393',
+var tiles = [
+  { color: '#FF482F', sound: './assets/sounds/clap.wav' },
+  { color: '#F8CE64', sound: './assets/sounds/clap.wav' },
+  { color: '#74F8B7', sound: './assets/sounds/clap.wav' },
+  { color: '#ADC96C', sound: './assets/sounds/clap.wav' },
+  { color: '#FF9B31', sound: './assets/sounds/clap.wav' },
+  { color: '#FF5677', sound: './assets/sounds/clap.wav' },
+  { color: '#BB60BF', sound: './assets/sounds/clap.wav' },
+  { color: '#54F393', sound: './assets/sounds/clap.wav' },
 ];
 
 class Tile extends React.Component {
@@ -28,7 +29,16 @@ class Tile extends React.Component {
     useNativeDriver: true,
   };
 
+  componentWillMount() {
+    this.soundObject = new Audio.Sound();
+    this.soundObject.loadAsync(require('./assets/sounds/clap.wav'));
+  }
+
   _onPressIn() {
+    this.soundObject.stopAsync().then((success, error) => {
+      this.soundObject.playAsync();
+    });
+
     if (this.animation) {
       this.animation.stop();
     }
@@ -75,7 +85,9 @@ export default class App extends React.Component {
     return (
       <View style={{ flexWrap: 'wrap', backgroundColor: 'black' }}>
         <StatusBar hidden={true} />
-        {colors.map((color, i) => <Tile key={i} color={color} />)}
+        {tiles.map((tile, i) =>
+          <Tile key={i} color={tile.color} sound={tile.sound} />
+        )}
       </View>
     );
   }
