@@ -81,6 +81,16 @@ class Tile extends React.Component {
 }
 
 export default class App extends React.Component {
+  componentWillMount() {
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS, // TODO(Abi): Switch back to INTERRUPTION_MODE_IOS_DO_NOT_MIX
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true, // TODO(Abi): Is this the common behavior on Android?
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    });
+  }
+
   render() {
     return (
       <View style={{ flexWrap: 'wrap', backgroundColor: 'black' }}>
