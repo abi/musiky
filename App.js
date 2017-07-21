@@ -12,13 +12,13 @@ import { Audio } from 'expo';
 
 var tiles = [
   { color: '#FF482F', sound: require('./assets/sounds/clap.wav') },
-  { color: '#F8CE64', sound: require('./assets/sounds/clap.wav') },
-  { color: '#74F8B7', sound: require('./assets/sounds/clap.wav') },
-  { color: '#ADC96C', sound: require('./assets/sounds/clap.wav') },
-  { color: '#FF9B31', sound: require('./assets/sounds/clap.wav') },
-  { color: '#FF5677', sound: require('./assets/sounds/clap.wav') },
-  { color: '#BB60BF', sound: require('./assets/sounds/clap.wav') },
-  { color: '#54F393', sound: require('./assets/sounds/clap.wav') },
+  { color: '#F8CE64', sound: require('./assets/sounds/london.mp3') },
+  { color: '#74F8B7', sound: require('./assets/sounds/yt.wav') },
+  { color: '#ADC96C', sound: require('./assets/sounds/scream.wav') },
+  { color: '#FF9B31', sound: require('./assets/sounds/kick.wav') },
+  { color: '#FF5677', sound: require('./assets/sounds/die.wav') },
+  { color: '#BB60BF', sound: require('./assets/sounds/open.wav') },
+  { color: '#54F393', sound: require('./assets/sounds/snare.wav') },
 ];
 
 class Tile extends React.Component {
